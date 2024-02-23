@@ -25,23 +25,13 @@ function divide(a, b) {
 function calculate(operator, firstNum, secondNum) {
     switch (operator) {
         case 'add':
-            // console.log(add(firstNum, secondNum));
-            return add(firstNum, secondNum);
-            break;
+            return add(firstNum, secondNum).toFixed(2).replace(/[.,]0+$/, "");
         case 'subtract':
-            // console.log(subtract(firstNum, secondNum));
-            return subtract(firstNum, secondNum);
-            break;
+            return subtract(firstNum, secondNum).toFixed(2).replace(/[.,]0+$/, "");
         case 'multiply':
-            // console.log(multiply(firstNum, secondNum));
-            return multiply(firstNum, secondNum);
-            break;
+            return multiply(firstNum, secondNum).toFixed(2).replace(/[.,]0+$/, "");
         case 'divide':
-            // console.log(divide(firstNum, secondNum));
-            return divide(firstNum, secondNum);
-            break;
-        default:
-            console.log('error');
+            return divide(firstNum, secondNum).toFixed(2).replace(/[.,]0+$/, "");
     }
 }
 
@@ -50,11 +40,11 @@ function updateDisplay() {
     let s2 = secondNum;
     let op = '';
 
-    while (s1.charAt(0) === '0') {
+    while (s1.charAt(0) === '0' && s1.length > 1) {
         s1 = s1.substring(1);
     }
 
-    while (s2.charAt(0) === '0') {
+    while (s2.charAt(0) === '0' && s1.length > 1) {
         s2 = s2.substring(1);
     }
 
@@ -81,7 +71,7 @@ function updateDisplay() {
 let firstNum = '';
 let secondNum = '';
 let operator = '';
-let displayString = '';
+// let displayString = '';
 let justAnswered = false;
 
 const numberButtons = document.querySelectorAll('.number');
@@ -121,9 +111,19 @@ for (let i = 0; i < numberButtons.length; i++) {
 
 for (let i = 0; i < operatorButtons.length; i++) {
     operatorButtons[i].addEventListener('click', () => {
-        if (operator === '') {
+        if (secondNum === '' && operator === '') {
             operator = operatorButtons[i].id;
             justAnswered = false;
+        } else if (secondNum === '' && operator !== '') {
+            operator = operatorButtons[i].id;
+            justAnswered = false;
+        } else if (secondNum !== '' && operator !== '') {
+            console.log(`answer: ${calculate(operator, firstNum, secondNum)}`)
+            firstNum = String(calculate(operator, firstNum, secondNum));
+            secondNum = '';
+            operator = operatorButtons[i].id;
+            updateDisplay();
+            justAnswered = true;
         }
         console.log(`first: ${firstNum}, op: ${operator}, second: ${secondNum}`);
         updateDisplay();
@@ -133,10 +133,10 @@ for (let i = 0; i < operatorButtons.length; i++) {
 clearButton.addEventListener('click', () => {
     console.log('clearing display');
 
-    firstNum = '';
+    firstNum = '0';
     secondNum = '';
     operator = '';
-    displayString = '';
+    // displayString = '';
 
     updateDisplay();
 
@@ -148,11 +148,15 @@ decimalButton.addEventListener('click', () => {
     if (firstNum === '' && secondNum === '' && operator === '') {
         firstNum = '0.';
     } else if (firstNum !== '' && secondNum === '' && operator === '') {
-        firstNum = firstNum + '.';
+        if (!firstNum.includes('.')) {
+            firstNum = firstNum + '.';
+        }
     } else if (firstNum !== '' && secondNum === '' && operator !== '') {
         secondNum = '0.';
     } else if (firstNum !== '' && secondNum !== '' && operator !== '') {
-        secondNum = secondNum + '.';
+        if (!secondNum.includes('.')) {
+            secondNum = secondNum + '.';
+        }
     }
     updateDisplay();
     
