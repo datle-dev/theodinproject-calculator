@@ -1,3 +1,106 @@
-* {
+/* * {
     border: 1px solid black;
+} */
+
+html {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    font-size: 16px;
+    height: 40px;
+    width: 80px;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+}
+
+button.number {
+    background-color: #f1f3f4;
+    color: #202124;
+}
+
+button.operator,
+button.special {
+    background-color: #dadce0;
+    color: #202124;
+}
+
+#equals {
+    background-color: #4285f4;
+    color: #fff;
+    border: 1px solid #4285f4;
+}
+
+button:hover,
+#equals:hover {
+    background-color: aqua;
+    color: black;
+}
+
+button:active {
+    background-color: aqua;
+    color: black;
+    transform: translateY(2px);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.display {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    width: 100%;
+    font-size: 24px;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+}
+
+.display > p {
+    margin-right: 12px;
+}
+
+.input {
+    display: flex;
+    gap: 4px;
+}
+
+.number-area {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 4px;
+}
+
+.number-row {
+    gap: 4px;
+}
+
+.number-area > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.number-area button {
+    flex-basis: 80px;
+}
+
+.operator-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 4px;
 }
